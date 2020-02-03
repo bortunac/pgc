@@ -124,6 +124,8 @@
 
     <plugin name="cordova-plugin-qr-barcode-scanner" />
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
-    <string>To scan barcodes</string>
-</edit-config>
+        <string>To scan barcodes</string>
+    </edit-config>
+
+    <preference name="android-build-tool" value="gradle" />
 </widget>
