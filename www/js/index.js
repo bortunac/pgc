@@ -35,6 +35,7 @@ var app = {
     onDeviceReady: function () {
         app.receivedEvent('deviceready');
         app.init_buttons();
+        console.log(navigator);
     },
     // Update DOM on a Received Event
     receivedEvent: function (id) {
@@ -47,8 +48,14 @@ var app = {
 
         console.log('Received Event: ' + id);
     },
-    init_buttons() {
-        document.getElementById("but1").addEventListener("click", ev => { alert("but1"); });
-        document.getElementById("but2").addEventListener("click", ev => { alert("but2"); });
+    init_buttons() { //  se executa dupa deviceready  event 
+        var nf = function () { };
+        document.getElementById("but1").addEventListener("click", ev => {
+            navigator.vibrate(100);
+            alert("but1");
+        });
+        document.getElementById("but2").addEventListener("click", ev => {
+            alert("but2");
+        });
     }
 };
