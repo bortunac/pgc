@@ -165,6 +165,7 @@ function scan_qr(){
   
 
         document.getElementById("but2").addEventListener("click", ev => {
+         
             scan_qr()
             //openCamera("_camera-thmb");
         });
