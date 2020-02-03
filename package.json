@@ -24,7 +24,8 @@
       "cordova-plugin-globalization": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-network-information": {},
-      "cordova-plugin-vibration": {}
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-qrscanner": {}
     },
     "platforms": [
       "browser"
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "cordova-browser": "^6.0.0",
-    "cordova-plugin-compat": "^1.2.0"
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-qrscanner": "^3.0.1"
   }
 }
