@@ -28,10 +28,12 @@
       "phonegap-plugin-barcodescanner": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   },
   "dependencies": {
+    "cordova-android": "^8.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-compat": "^1.2.0"
   }

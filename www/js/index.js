@@ -1,21 +1,4 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+
 var app = {
     // Application Constructor
     initialize: function () {
@@ -79,7 +62,7 @@ var app = {
         }
 
         function openCamera(selection) {
-            
+
 
             var srcType = Camera.PictureSourceType.CAMERA;
             var options = setOptions(srcType);
@@ -107,67 +90,68 @@ var app = {
             elem.src = imgUri;
         }
 
-        
 
-function scan_qr_(){
-    cordova.plugins.barcodeScanner.scan(
-        function (result) {
-            alert("We got a barcode\n" +
-                  "Result: " + result.text + "\n" +
-                  "Format: " + result.format + "\n" +
-                  "Cancelled: " + result.cancelled);
-        },
-        function (error) {
-            alert("Scanning failed: " + error);
-        },
-        {
-            _preferFrontCamera : true, // iOS and Android
-            showFlipCameraButton : true, // iOS and Android
-            showTorchButton : true, // iOS and Android
-            torchOn: true, // Android, launch with the torch switched on (if available)
-            saveHistory: true, // Android, save scan history (default false)
-            prompt : "Place a barcode inside the scan area", // Android
-            resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-            formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-            orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
-            disableAnimations : true, // iOS
-            disableSuccessBeep: false // iOS and Android
-        }
-     );
-}
 
-function scan_qr(){
-    cordova.plugins.barcodeScanner.scan(
-        function (result) {
-            alert("We got a barcode\n" +
-                  "Result: " + result.text + "\n" +
-                  "Format: " + result.format + "\n" +
-                  "Cancelled: " + result.cancelled);
-        },
-        function (error) {
-            alert("Scanning failed: " + error);
-        },
-        {
-            _preferFrontCamera : true, // iOS and Android
-            showFlipCameraButton : true, // iOS and Android
-            showTorchButton : true, // iOS and Android
-            torchOn: false, // Android, launch with the torch switched on (if available)
-            saveHistory: true, // Android, save scan history (default false)
-            prompt : "Place a barcode inside the scan area", // Android
-            resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-            formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-            orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
-            disableAnimations : true, // iOS
-            disableSuccessBeep: false // iOS and Android
+
+
+        function scan_qr() {
+            cordova.plugins.barcodeScanner.scan(
+                function (result) {
+                    if (result.cancelled !== true) {
+                        alert("We got a barcode\n" +
+                            "Result: " + result.text + "\n" +
+                            "Format: " + result.format + "\n" +
+                            "Cancelled: " + result.cancelled);
+                    } else {
+                        console.log("canceled")
+                    }
+                },
+                function (error) {
+                    alert("Scanning failed: " + error);
+                },
+                {
+                    _preferFrontCamera: true, // iOS and Android
+                    showFlipCameraButton: true, // iOS and Android
+                    showTorchButton: true, // iOS and Android
+                    torchOn: false, // Android, launch with the torch switched on (if available)
+                    saveHistory: true, // Android, save scan history (default false)
+                    prompt: "Place a barcode inside the scan area", // Android
+                    resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                    formats: "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                    orientation: "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+                    disableAnimations: true, // iOS
+                    disableSuccessBeep: false, // iOS and Android
+                    AbortController:true 
+                }
+            );
         }
-     );
-}
-  
+        function displayContents(err, text) {
+            if (err) {
+                // an error occurred, or the scan was canceled (error code `6`)
+            } else {
+                // The scan completed, display the contents of the QR code:
+                alert(text);
+            }
+        }
 
         document.getElementById("but2").addEventListener("click", ev => {
-         
-            scan_qr()
-            //openCamera("_camera-thmb");
+            scan_qr();
         });
+
+        var ref;
+        but3.addEventListener("click", function (ev) {
+            ref = cordova.InAppBrowser.open('https://ne.myadr.ro/test.php', '_blank', 'location=no');
+            ref.addEventListener('loadstop', onload_inappbrowser);
+            ref.show();
+        })
+
+        function onload_inappbrowser() {
+            ref.removeEventListener("loadstop", onload_inappbrowser);
+            ref.executeScript({ code: "console.log('ttt');" }, function () {
+                console.log("ref:", ref);
+
+            });
+        }
+
     }
 }
