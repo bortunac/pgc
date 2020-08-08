@@ -1,0 +1,81 @@
+@font-face {
+    font-family: BAC;
+    font-style: normal;
+    font-weight: normal;
+    src:  url("../fonts/bac_icons.woff") format("woff"), url("../fonts/bac_icons.ttf") format("truetype"), url("../fonts/bac_icons.svg#svgFontName") format("svg");
+  }
+
+[btn] {
+    padding: .5em;
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+
+.circular_loader {
+    position: absolute;
+    border: 8px solid rgba(200, 200, 200, .3);
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    width: 10em;
+    height: 10em;
+    left: 50%;
+    margin-left: -5em;
+    top: 50%;
+    margin-top: -5em;
+    -webkit-animation: spin .5s linear infinite;
+    /* Safari */
+    animation: spin .5s linear infinite;
+    z-index: 1000000;
+}
+
+/* Safari */
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+[c_red] {
+    color: red;
+}
+[b_red]{
+    border:1px solid red;
+}
+
+clear{
+    clear:both;
+}
+[fll]{
+    float: left;
+}
+[flr]{
+    float: right;
+}
+[block]{
+    display:block;
+}
+[iblock]{
+    display:inline-block;
+}
+
+[_anm_]{
+    transition: all .3s ease-in-out;
+}
+[_anm_2]{
+    transition: all .7s ease-in-out;
+}
