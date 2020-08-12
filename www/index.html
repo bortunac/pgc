@@ -1,113 +1,110 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport"
-        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
-    <link rel="stylesheet" type="text/css" href="css/ratchet.css" />
-    <link rel="stylesheet" type="text/css" href="css/bac_cordova.css" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>aqr</title>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
+        <link rel="stylesheet" type="text/css" href="css/ratchet.css" />
+        <link rel="stylesheet" type="text/css" href="css/bac_cordova.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>aqr</title>
+    </head>
 
-<body>
-    <div class="_app">
-        <header top_bar class="bar bar-nav">
-            <div fll hidden id="back_btn"></div>
-            <h3 style="text-align: center; margin-top: .5em;" id="app_title">APP_TOKEN</h3>
-        </header>
-        <div id="MAIN" class="content" style="background: #eee;margin-top:.2em">
-            <section but_and_exp>
-                <div square_btn id="qr_scaner_btn"></div>
-                <span>
-                    <b>QR_Authentication</b>
-                    <p>SCAN QR TAG dfdfsfds dfsffdsfdfsdfdsfsf dfdfsfdsdfsdf
-                        dfdfsfdsdfsdfdsfsd fd fdf ffrrfref rfregtwgte
-                        fdsfdser</p>
-                </span>
-            </section>
-            <section but_and_exp>
-                <div square_btn id="settings_btn"></div>
-                <span>
-                    <b>Settings</b>
-                    <p>tralala</p>
-                </span>
-                <div style="clear:both"></div>
-            </section>
-            <section but_and_exp>
-                <div square_btn id="inappbrowser_btn"></div>
-                <span>
-                    <b>InAppBrowser</b>
-                    <p>- mobile gate to domain above<br />- usefull things based on user profile</p>
-                </span>
-                <div style="clear:both"></div>
-            </section>
-            <section but_and_exp>
-                <div square_btn id="extra_btn"></div>
-                <span>
-                    <b>EXTRA</b>
-                    <p>...</p>
-                </span>
-                <div style="clear:both"></div>
-            </section>
-            <div id="settings_panel" _anm_ modal_panel
-                style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1000, 0, 1);">
-                <ul class="table-view">
-                    <li class="table-view-cell">
-                        <a style="margin-right:-110px">
-                            <select id="domain_select_btn" flr style="width:auto;border:2px solid red; font-size: 1.8em; margin-bottom: 0;height:1.8em">
-                                <option>&nbsp;</option>
-                                <option>ne</option>
-                                <option>bnf</option>
-                            </select>
-                            <b>SUB_DOM</b><code></code>
-                            <p>you can have a token for every site you login</p>
+    <body>
+        <div class="app">
+            <header top_bar class="bar bar-nav">
+                <div fll hidden id="back_btn"></div>
+                <h3 style="text-align: center; margin-top: .5em;" id="app_title">APP_TOKEN</h3>
+            </header>
+            <div id="MAIN" class="content" style="background: #eee;margin-top:.2em">
+                <section but_and_exp>
+                    <div square_btn id="qr_scaner_btn"></div>
+                    <span>
+                        <b>QR_Authentication</b>
+                        <p>SCAN QR TAG dfdfsfds dfsffdsfdfsdfdsfsf dfdfsfdsdfsdf
+                            dfdfsfdsdfsdfdsfsd fd fdf ffrrfref rfregtwgte
+                            fdsfdser</p>
+                    </span>
+                </section>
+                <section but_and_exp>
+                    <div square_btn id="settings_btn"></div>
+                    <span>
+                        <b>Settings</b>
+                        <p>tralala</p>
+                    </span>
+                    <div style="clear:both"></div>
+                </section>
+                <section but_and_exp>
+                    <div square_btn id="inappbrowser_btn"></div>
+                    <span>
+                        <b>InAppBrowser</b>
+                        <p>- mobile gate to domain above<br />- usefull things based on user profile</p>
+                    </span>
+                    <div style="clear:both"></div>
+                </section>
+                <section but_and_exp>
+                    <div square_btn id="extra_btn"></div>
+                    <span>
+                        <b>EXTRA</b>
+                        <p>... ceva idei ?</p>
+                    </span>
+                    <div style="clear:both"></div>
+                </section> 
+                <div id="settings_panel" _anm_ modal_panel  style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1000, 0, 1);">
+                    <ul class="table-view">
+                        <li class="table-view-cell">
+                            <a style="margin-right:-110px">
+                                <select id="domain_select_btn" flr style="width:auto;border:2px solid red; font-size: 1.8em; margin-bottom: 0;height:1.8em">
+                                    <option>&nbsp;</option>
+                                    <option>ne</option>
+                                    <option>bnf</option>   
+                                </select>
+                                <b>SUB_DOM</b><code></code>
+                                <p>you can have a token for every site you login</p>
 
-                        </a>
-                    </li>
-                    <li id="tel_setting_btn" class="table-view-cell">
-                        <a class="navigate-right">
-                            <b>TEL</b> <span style='color:blue'>(all or last 3 digits)</span><code>+40772266271</code>
-                            <p>associated with you on domain database -- required for SMS</p>
-                        </a>
-                    </li>
-                    <li id="token_setting_btn" class="table-view-cell">
-                        <a class="navigate-right">
-                            <b>TOKEN</b><code></code>
-                            <p>... your 2nd step authentication code</p>
-                        </a>
-                    </li>
-                    <li id="sms_token_btn" class="table-view-cell">
-                        <a class="navigate-right">
-                            <b>SMS</b>
-                            <p>request token code via SMS on this phone</p>
-                        </a>
-                    </li>
-                </ul>
-                <div status_bar>
-                    <div style="float:left;margin:.5em 0 0 .7em;">SETTINGS</div>
+                            </a>
+                        </li>
+                        <li id="tel_setting_btn" class="table-view-cell">
+                            <a class="navigate-right">
+                                <b>TEL</b> <span style='color:blue'>(all or last 3 digits)</span><code>+40772266271</code>
+                                <p>associated with you on domain database -- required for SMS</p>
+                            </a>
+                        </li>
+                        <li id="token_setting_btn" class="table-view-cell">
+                            <a class="navigate-right">
+                                <b>TOKEN</b><code></code>
+                                <p>... your 2nd step authentication code</p>
+                            </a>
+                        </li>
+                        <li id="sms_token_btn" class="table-view-cell">
+                            <a class="navigate-right">
+                                <b>SMS</b>
+                                <p>request token code via SMS on this phone</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div status_bar>
+                        <div style="float:left;margin:.5em 0 0 .7em;">SETTINGS</div>
+                    </div>
                 </div>
+                <div style="height:300px">&nbsp;</div>
             </div>
-            <div style="height:300px">&nbsp;</div>
-        </div>
 
-        <div style="position: fixed;bottom:0;width:100%;margin:0;" id="deviceready" class="blink">
-            <p style="margin:0 !important;" class="event listening">Connecting to Device</p>
-            <p style="margin:0 !important" class="event received">Device is Ready</p>
+            <div style="position: fixed;bottom:0;width:100%;margin:0;" id="deviceready" class="blink">
+                <p style="margin:0 !important;" class="event listening">Connecting to Device</p>
+                <p style="margin:0 !important" class="event received">Device is Ready</p>
+            </div>
         </div>
-    </div>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/ratchet.js"></script>
-    <script type="text/javascript" src="js/bac_cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
-        app.initialize(); 
-    </script>
-</body>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/ratchet.js"></script>
+        <script type="text/javascript" src="js/bac_cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
 
 </html>

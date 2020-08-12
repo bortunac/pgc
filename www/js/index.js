@@ -1,3 +1,5 @@
+/* global qr_scaner_btn, settings_btn, settings_panel, Q, domain_select_btn, app_title, tel_setting_btn, LS, token_setting_btn, ask, _E, back_btn, MAIN, PLATFORM, body, browser, but3, sms_token_btn, dn, inappbrowser_btn, onload_inappbrowser, Camera, nf */
+
 var ACTIVE_PANEL;
 var app = {
     // Application Constructor
@@ -34,7 +36,7 @@ var app = {
 
         domain_select_btn.on({
             change: function (ev) {
-                app_title.html = "https://<m style='color:#4bff00'>" + (/^\S/.test(this.value) ? this.value + "." : "") + "</m>myadr.ro/"
+                app_title.html = "https://<m style='color:#4bff00'>" + (/^\S/.test(this.value) ? this.value + "." : "") + "</m>myadr.ro/";
             }
         });
         tel_setting_btn.on({
@@ -63,117 +65,120 @@ var app = {
             click: function () {
                 navigator.notification.confirm("SEND TOKEN VIA SMS !?", function (rez) {
                     +rez === 1 && ask("qra.send_token", { email: LS.email, tel: LS.tel }, function (r) { dn(r); });
-                })
+                });
             }
         });
         inappbrowser_btn.on("click", ev => {
             ref = cordova.InAppBrowser.open('https://ne.myadr.ro/test.php', '_blank', 'location=no');
-            ref.addEventListener('loadstop', onload_inappbrowser);
+            ref.addEventListener('loadstop', nf);
             ref.show();
         });
         back_btn.on({ click: hide_functional_panel });
+        
+        
+       // extra_btn.on({click:ev =>dn(ev)}); 
     },
 
 
-    old_init_buttons() {
-
-
-        Q("#qr_scaner_btn").addEventListener("click", ev => {
-            scan_qr();
-        });
-
-
-        return;
-        // BUT_1
-        document.getElementById("but1").addEventListener("click", ev => {
-            zzz();
-            navigator.notification.prompt("esti de acord?", function (rez) {
-                if (rez.buttonIndex === 1) {
-                    alert("ai fost de acord!", "DECI ASA!");
-                }
-                else {
-                    navigator.notification.beep(1);
-                }
-            });
-        });
-
-        function setOptions(srcType) {
-            var options = {
-                // Some common settings are 20, 50, and 100
-                quality: 50,
-                destinationType: Camera.DestinationType.FILE_URI,
-                // In this app, dynamically set the picture source, Camera or photo gallery
-                sourceType: srcType,
-                //encodingType: Camera.EncodingType.JPEG,
-                encodingType: Camera.EncodingType.PNG,
-                mediaType: Camera.MediaType.PICTURE,
-                _allowEdit: true,
-                correctOrientation: true  //Corrects Android orientation quirks
-            }
-            return options;
-        }
-
-        function openCamera(selection) {
-
-
-            var srcType = Camera.PictureSourceType.CAMERA;
-            var options = setOptions(srcType);
-            //var func = createNewFileEntry;
-            console.log("333")
-            if (selection == "camera-thmb") {
-                options.targetHeight = 100;
-                options.targetWidth = 100;
-            }
-            navigator.camera.getPicture(function cameraSuccess(imageUri) {
-                console.log(imageUri);
-                displayImage(imageUri);
-                // You may choose to copy the picture, save it somewhere, or upload.
-                //func(imageUri);
-
-            }, function cameraError(error) {
-                console.debug("Unable to obtain picture: " + error, "app");
-
-            }, options);
-        }
-
-        function displayImage(imgUri) {
-
-            var elem = document.getElementById('myImage');
-            elem.src = imgUri;
-        }
-
-
-
-
-
-
-        function displayContents(err, text) {
-            if (err) {
-                // an error occurred, or the scan was canceled (error code `6`)
-            } else {
-                // The scan completed, display the contents of the QR code:
-                alert(text);
-            }
-        }
-
-
-
-        var ref;
-        but3.addEventListener("click", function (ev) {
-            ref = cordova.InAppBrowser.open('https://ne.myadr.ro/test.php', '_blank', 'location=no');
-            ref.addEventListener('loadstop', onload_inappbrowser);
-            ref.show();
-        })
-
-        function onload_inappbrowser() {
-            ref.removeEventListener("loadstop", onload_inappbrowser);
-            ref.executeScript({ code: "console.log('ttt');" }, function () {
-                console.log("ref:", ref);
-
-            });
-        }
-
-    },
+//    old_init_buttons() {
+//
+//
+//        Q("#qr_scaner_btn").addEventListener("click", ev => {
+//            scan_qr();
+//        });
+//
+//
+//        return;
+//        // BUT_1
+//        document.getElementById("but1").addEventListener("click", ev => {
+//            zzz();
+//            navigator.notification.prompt("esti de acord?", function (rez) {
+//                if (rez.buttonIndex === 1) {
+//                    alert("ai fost de acord!", "DECI ASA!");
+//                }
+//                else {
+//                    navigator.notification.beep(1);
+//                }
+//            });
+//        });
+//
+//        function setOptions(srcType) {
+//            var options = {
+//                // Some common settings are 20, 50, and 100
+//                quality: 50,
+//                destinationType: Camera.DestinationType.FILE_URI,
+//                // In this app, dynamically set the picture source, Camera or photo gallery
+//                sourceType: srcType,
+//                //encodingType: Camera.EncodingType.JPEG,
+//                encodingType: Camera.EncodingType.PNG,
+//                mediaType: Camera.MediaType.PICTURE,
+//                _allowEdit: true,
+//                correctOrientation: true  //Corrects Android orientation quirks
+//            };
+//            return options;
+//        }
+//
+//        function openCamera(selection) {
+//
+//
+//            var srcType = Camera.PictureSourceType.CAMERA;
+//            var options = setOptions(srcType);
+//            //var func = createNewFileEntry;
+//            console.log("333");
+//            if (selection == "camera-thmb") {
+//                options.targetHeight = 100;
+//                options.targetWidth = 100;
+//            }
+//            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+//                console.log(imageUri);
+//                displayImage(imageUri);
+//                // You may choose to copy the picture, save it somewhere, or upload.
+//                //func(imageUri);
+//
+//            }, function cameraError(error) {
+//                console.debug("Unable to obtain picture: " + error, "app");
+//
+//            }, options);
+//        }
+//
+//        function displayImage(imgUri) {
+//
+//            var elem = document.getElementById('myImage');
+//            elem.src = imgUri;
+//        }
+//
+//
+//
+//
+//
+//
+//        function displayContents(err, text) {
+//            if (err) {
+//                // an error occurred, or the scan was canceled (error code `6`)
+//            } else {
+//                // The scan completed, display the contents of the QR code:
+//                alert(text);
+//            }
+//        }
+//
+//
+//
+//        var ref;
+//        but3.addEventListener("click", function (ev) {
+//            ref = cordova.InAppBrowser.open('https://ne.myadr.ro/test.php', '_blank', 'location=no');
+//            ref.addEventListener('loadstop', onload_inappbrowser);
+//            ref.show();
+//        });
+//
+//        function onload_inappbrowser() {
+//            ref.removeEventListener("loadstop", onload_inappbrowser);
+//            ref.executeScript({ code: "console.log('ttt');" }, function () {
+//                console.log("ref:", ref);
+//
+//            });
+//        }
+//
+//    },
 
     device_adaptations: function () {
         var platform_style = _E('link').setA({
@@ -191,7 +196,7 @@ var app = {
         token_setting_btn.find("code")[0].html = LS.token ? "******" : "EXPIRED !!!";
 
     }
-}
+};
 
 function show_funtional_panel(panel) {
     panel.__txy = [0, 0];
@@ -241,7 +246,7 @@ function scan_qr() {
                     tel: LS.tel
                 }).then(dn);
             } else {
-                console.log("canceled")
+                console.log("canceled");
             }
         },
         function (error) {
