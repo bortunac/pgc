@@ -1,13 +1,13 @@
 
-/* global FormData, HTMLFormElement, Q, Node, Element, NodeList, self, NP, EP, body */
+/* global FormData, HTMLFormElement, Q, Node, Element, NodeList, self, NP, EP, body, Notification, LS, MEM */
 
 (function () {
     Object.defineProperties(self, {
         $$: {
             value: function (hnd) {
                 (document.readyState === "complete" || document.readyState === "loaded") ?
-                    hnd.apply(this, arguments) :
-                    document.addEventListener("DOMContentLoaded", hnd);
+                        hnd.apply(this, arguments) :
+                        document.addEventListener("DOMContentLoaded", hnd);
             }
         },
         Q: {
@@ -20,7 +20,7 @@
         },
         browser: {
             value: (function () {
-                var o = { EDGE: /edg/i, Opera: /opr/i, Chrome: /chrome/i, Firefox: /firefox/i, Safari: /safari/i };
+                var o = {EDGE: /edg/i, Opera: /opr/i, Chrome: /chrome/i, Firefox: /firefox/i, Safari: /safari/i};
                 for (var v in o) {
                     if (o[v].test(navigator.userAgent)) {
                         return v;
@@ -36,28 +36,32 @@
                 return document.body;
             }
         },
-        SS: { value: sessionStorage },
-        LS: { value: localStorage },
-        NP: { value: Node.prototype },
-        EP: { value: Element.prototype },
-        NLP: { value: NodeList.prototype },
+        SS: {value: sessionStorage},
+        LS: {value: localStorage},
+        NP: {value: Node.prototype},
+        EP: {value: Element.prototype},
+        NLP: {value: NodeList.prototype},
         PLATFORM: {
             value: (function () {
                 var userAgent = window.navigator.userAgent,
-                    platform = window.navigator.platform,
-                    macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
-                    windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-                    iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-                    os = null;
+                        platform = window.navigator.platform,
+                        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+                        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+                        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+                        os = null;
                 if (macosPlatforms.indexOf(platform) !== -1) {
                     os = 'Mac';
-                } else if (iosPlatforms.indexOf(platform) !== -1) {
+                }
+                else if (iosPlatforms.indexOf(platform) !== -1) {
                     os = 'iOS';
-                } else if (windowsPlatforms.indexOf(platform) !== -1) {
+                }
+                else if (windowsPlatforms.indexOf(platform) !== -1) {
                     os = 'Windows';
-                } else if (/Android/.test(userAgent)) {
+                }
+                else if (/Android/.test(userAgent)) {
                     os = 'Android';
-                } else if (!os && /Linux/.test(platform)) {
+                }
+                else if (!os && /Linux/.test(platform)) {
                     os = 'Linux';
                 }
                 return os;
@@ -78,7 +82,8 @@
         setTimeout(() => navigator.notification.alert(message, nf, title = ''), 100);
     };
 
-    nf = () => { };
+    nf = () => {
+    };
 
     cl = function () {
         console.log(...arguments);
@@ -89,7 +94,7 @@
             resolve = a;
             reject = b;
         });
-        p.tail({ resolve, reject });
+        p.tail({resolve, reject});
         return p;
     };
 
@@ -100,6 +105,7 @@
                 for (let p in o) {
                     this[p] = o[p];
                 }
+                return this;
             }
         }, pointer: {
             value: function (arr, val) {
@@ -155,10 +161,11 @@
                 var c = window.customElements.get(name);
                 if (c) {
                     $ = new c();   // _E('f-btn')  -- customElement
-                } else {
+                }
+                else {
                     $ = document.createElement(name); // _E('button')  -- htmlElement
                 }
-            //$ = document.createElement(name); // create new name element containing text
+                //$ = document.createElement(name); // create new name element containing text
         }
         if (text)
             $.innerHTML = text;
@@ -322,7 +329,7 @@
                         var $;
                         $ = document.createElement('div');
                         $.innerHTML = A[0];
-                        this._.apply(this, $.childNodes.toArray());
+                        this._.apply(this, [...$.childNodes]);
                     }
                     else
                         this.appendChild(A[0]);
@@ -557,7 +564,7 @@
         overflow: {
             get: function () {
                 var $ = this, cw = $.clientWidth, sw = $.scrollWidth, ch = $.clientHeight, sh = $.scrollHeight;
-                return { w: cw < sw, h: ch < sh, dx: sw - cw, dy: sh - ch, clientWidth: cw, scrollWidth: sw, clientHeight: ch, scrollHeight: sh };
+                return {w: cw < sw, h: ch < sh, dx: sw - cw, dy: sh - ch, clientWidth: cw, scrollWidth: sw, clientHeight: ch, scrollHeight: sh};
             }
         },
         tagString: {
@@ -718,7 +725,7 @@
                                     o.matrix = A;
                                     break;
                                 default:
-                                    var tp = { r0c0: 0, r0c1: 1, r0c2: 2, r0c3: 3, r1c0: 4, r1c1: 5, r1c2: 6, r1c3: 7, r2c0: 8, r2c1: 9, r2c2: 10, r2c3: 11, r3c0: 12, r3c1: 13, r3c2: 14, r3c3: 15 }[p];
+                                    var tp = {r0c0: 0, r0c1: 1, r0c2: 2, r0c3: 3, r1c0: 4, r1c1: 5, r1c2: 6, r1c3: 7, r2c0: 8, r2c1: 9, r2c2: 10, r2c3: 11, r3c0: 12, r3c1: 13, r3c2: 14, r3c3: 15}[p];
                                     if (tp >= 0) {
                                         o.mtx[tp] = v;
                                     }
@@ -822,12 +829,12 @@
         geometry: {
             get: function () {// 2 dimension 
                 var $ = this,
-                    cr = $.cr, // client rects
-                    comp = $.computed(), // getComputedStyle($)
-                    MTX, // matrix(0,1,....  string
-                    trfo = (comp.transformOrigin || "").match(/[\.-\d]+/gim), // transform origin
-                    scale,
-                    M = comp.transform.split(/\s*[(),]\s*/).slice(1, -1); // matrix(0,1,....  string
+                        cr = $.cr, // client rects
+                        comp = $.computed(), // getComputedStyle($)
+                        MTX, // matrix(0,1,....  string
+                        trfo = (comp.transformOrigin || "").match(/[\.-\d]+/gim), // transform origin
+                        scale,
+                        M = comp.transform.split(/\s*[(),]\s*/).slice(1, -1); // matrix(0,1,....  string
                 if (!M.length)
                     M = [1, 0, 0, 1, 0, 0];
                 if (M.length === 6) {
@@ -869,7 +876,7 @@
                 this.observer = o;
                 o.target = this;
                 if (!Object.keys(config).length)
-                    config = { attributes: true, childList: true, characterData: true };
+                    config = {attributes: true, childList: true, characterData: true};
                 o.observe(this, config);
                 return this;
             }
@@ -1137,11 +1144,11 @@
                 return;
             }
             (typeof type === "string" ? type.match(/[^\s,]+/gim) : type).forEach(// fortez transformarea "type1 type2,type3" despartite de virgula sau spatiu in array
-                function (type) {
-                    type = Q.custom_events[type] || type;
-                    typeof type !== "string" ? on_off_event(type, hnd, capt, elm, adrm) :
-                        Q.forced_event_hnd[type] ? Q.forced_event_hnd[type](elm, adrm, hnd, capt) : elm[adrm](type, hnd, capt);
-                }
+                    function (type) {
+                        type = Q.custom_events[type] || type;
+                        typeof type !== "string" ? on_off_event(type, hnd, capt, elm, adrm) :
+                                Q.forced_event_hnd[type] ? Q.forced_event_hnd[type](elm, adrm, hnd, capt) : elm[adrm](type, hnd, capt);
+                    }
             );
         }
 
@@ -1157,13 +1164,13 @@
             var $ = this;
             if (!flag_14all) {
                 (typeof type === "string" ? [type] : type).forEach(
-                    function (type) {
-                        function f(e) {
-                            hnd.bind($)(e);
-                            $.off(type, f);
+                        function (type) {
+                            function f(e) {
+                                hnd.bind($)(e);
+                                $.off(type, f);
+                            }
+                            $.on(type, f);
                         }
-                        $.on(type, f);
-                    }
                 );
             }
             else {
@@ -1177,8 +1184,8 @@
         };
         window['fire'] = NP.fire = function (type, data, interface) {
             data = data || {};
-            var type = { pik: "click", enter: "mouseover", leave: "mouseout" }[type] || type;
-            var evObj = new window[interface || "CustomEvent"](type, { bubbles: data.bubbles === false ? false : true });
+            var type = {pik: "click", enter: "mouseover", leave: "mouseout"}[type] || type;
+            var evObj = new window[interface || "CustomEvent"](type, {bubbles: data.bubbles === false ? false : true});
             evObj.tail(data);
             this.dispatchEvent(evObj);
             return this;
@@ -1289,9 +1296,9 @@
 
         ask = function (keyword, POST, done, fail, opt = {}) {
             /*
-            * ask("db\\read.val",{tb_name:'user_safe',type:2},true).then(Q.ip);
-            * ask("db\\read.val",{tb_name:'user_safe',type:2},Q.ip,null,{a:1,b:2});
-            */
+             * ask("db\\read.val",{tb_name:'user_safe',type:2},true).then(Q.ip);
+             * ask("db\\read.val",{tb_name:'user_safe',type:2},Q.ip,null,{a:1,b:2});
+             */
             var C = new Chain();
             var cb = function () {
                 // warning
@@ -1319,17 +1326,32 @@
                 C.resolve(this.response);
             };
 
+            
             var req = Q.ajax({
-                src: __root__ + "aha/io.php?keyword=" + keyword, // pt mai multe $_GET folosesc & ... ex ask("test_code&c=2&caca=pipi",'_::lo($_REQUEST);')
+                src:  "/aha/io.php?keyword=" + keyword, // pt mai multe $_GET folosesc & ... ex ask("test_code&c=2&caca=pipi",'_::lo($_REQUEST);')
                 data: POST,
                 method: "POST",
                 cb: cb,
                 ...opt
             });
-            console.log(C);
             return C;
         };
     }
+    
+    //EX      ask.only(!data_required)(keyword,POST,r=>{data_required=r.parsed;}).then     
+    ask.only = function (cond, ...args) {
+        return function (keyword, POST, cb = r => r) { // r=>r is pong function
+            var bool = cond instanceof Function ? cond(...args) : cond;
+            if (!bool) {
+                CH = new Chain;
+                CH.resolve(0);
+                return CH;
+            }
+            else {
+                return ask(keyword, POST, 'chain').then(cb);
+            }
+        };
+    };
     // FormData.prototype EXTENSION
     Object.defineProperties(FormData.prototype, {
         load: {
@@ -1474,7 +1496,7 @@
             requestAnimationFrame(function () {
                 let ELM = DO.dragElm;
                 ELM.style.transform = "translate(" + x + "px," + y + "px) " + DO.trf_base; // put translation first !!!
-                ELM.fire("drag", { drag: { dx: dx, dy: dy } });
+                ELM.fire("drag", {drag: {dx: dx, dy: dy}});
 
             });
 
@@ -1527,7 +1549,7 @@
         };
 
         EP.dragParent = function () {
-            this.drag({ target: this.parent });
+            this.drag({target: this.parent});
             return this;
         };
         EP.undragParent = EP.undrag;
@@ -1553,6 +1575,399 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Object.defineProperties(Array.prototype, {
+        find_obj: {
+            value: function (o, get_idx) {
+                var rez = [];//, idx = -1;
+                for (var v in this) {
+                    if (this[v]) {
+                        var bool = true;
+                        //  idx++;
+                        for (var p in o) {
+                            if (!this.hasOwnProperty(v) || this[v][p] != o[p]) {
+                                bool = false;
+                                break;
+                            }
+                        }
+                        bool && rez.push(get_idx ? +v : this[v]);
+                    }
+                }
+                return rez;
+            }
+        },
+        having: {
+            /**
+             * !!!ATENTIE -- REFERINTA catre elementele din original ---  se poate rupe   asa  S = COLECTION.having(condition).raw_copy() dar nu {...COLECTION.having(condition)} sau [...COLECTION.having(condition)]
+             * !!!ATENTIE --- accepta obiect de obiecte  {1:{},3:{}} -- ex hr.stc_by_id dar intoarce  ARRAY of objects
+             * 
+             * COLECTIE = 'array of complex objects with same structure '     COL = [{a:1,b:2},{a:2,b:1},{a:3,b:1},{a:4,b:5},{a:5,b:5},{a:1,c:{d:1,e:["alfa"]}},{c:{d:1,e:["alfa","beta"]}}]; 
+             * 
+             * ex -- using  reference objects
+             * COL.having({b:5,a:4},{a:[2,3]}) -> selecteaza seturile care au (b=5 si a=4) sau a = 2 sau a=3
+             * 
+             * ex2 ---  using logical expresion
+             * COL.having("${b} > 1 && ${a} > 4 ") --> [{a:5,b:5}]  ATENTIE nu se foloseste  = ca e asignare ci == sau ===
+             * 
+             * ex3 ---  using regular expression
+             * COL.having("/^55/.test('${b}')") --> seturi in care b incepe cu 55   AM ales stilul PHP pt desemnarea variabilelor  --- ATENTIE la SINGLE-QUOT 
+             * COL.having("${c} == 3 || ${a}===1 && ${b}===2")
+             * 
+             * 
+             * ex4 --- DEEP SEARCH POINTER
+             * COL.having("$@.c.e[1] !== undefined || $@.a > 2")  
+             * @returns {array}
+             */
+            value: function () {
+                var selected = [];
+                for (var i in arguments) {
+                    var o = arguments[i];
+                    for (var v in this) {
+                        try {
+                            var bool = true, set = this[v];
+                            if (typeof o === 'string') {
+                                if (/\$@/.test(o)) {
+                                    // Function -- DEEP SEARCH
+                                    var str = o.replace(/(\$@)([^\s=<>!\)]*)/gim, function (p, i, j) {
+                                        var a = j.match(/[^\.\[\]]+/gim);
+                                        return " _x_" + (a.length ? ".pointer(" + JSON.stringify(a) + ")" : "");//
+                                    });
+                                    bool = (new Function("_x_", "return " + str))(set);
+                                    console.log("----", str);
+                                }
+                                else {
+                                    // eval cu rgx
+                                    var str = o.replace(/\$\{(.*?)\}/gim, function (p, i) {
+                                        return set[i];
+                                    });
+                                    bool = eval(str);
+                                }
+                            }
+                            else {
+                                for (var p in o) {
+                                    if ((typeof o[p] !== 'object' ? this[v][p] != o[p] : !o[p].has(this[v][p]))) { // p:1 <-> p:[1,2]  !!!BAC>>> type_agnostic == not  ===
+                                        bool = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (bool) {
+                                selected.push(this[v]);
+                            }
+                        } catch (e) {
+                            console.log("INPUT:", o, "\nCOND:", str, "\n", e);
+                        }
+                    }
+                }
+                return selected;
+            }
+        }
+    });
+
+
+    window.MEM = {};
+    Object.defineProperties(MEM, {
+        get: {
+            value: function (path) {
+                path = typeof path === 'string' ? path.split(".") : path;
+                if (!LS[path[0]])
+                    return undefined;
+                var o = LS[path[0]].parsed;
+                path.shift();
+                for (var i = 0; i < path.length; i++) {
+                    o = o[path[i]];
+                    if (!o)
+                        return undefined;
+                }
+                return o;
+            }
+        },
+        set: {
+            value: function (path, value) {// session.write(_name_, o);
+                if (path === undefined) {
+                    throw new Error("\"session.set\" ----  missing path argument ---");
+                    return;
+                }
+                path = typeof path === 'string' ? path.split(".") : path;
+                var _ssb_ = path.shift();
+                if (path.length) {
+                    var o = (LS[_ssb_] || '{}').parsed; // daca e scalar trebuie suprascris cu obiect gol
+                    var a = o;
+                    path.forEach(function (p_segment, idx) {
+                        if (a[p_segment] === undefined) {
+                            a[p_segment] = +p_segment ? [] : {};
+                        }
+                        a = a[p_segment];
+                    });
+                    eval('o["' + path.join('"]["') + '"] = ' + JSON.stringify(value));
+                    MEM.write(_ssb_, o);
+                }
+                else {
+                    value !== undefined ? MEM.write(_ssb_, value) : LS.removeItem(_ssb_);
+                }
+            }
+        },
+        write: {
+            value: function (name, o) {
+                LS.setItem(name, JSON.stringify(o));
+            }
+        },
+        read: {
+            value: function (name) {
+                return JSON.parse(LS.getItem(name));
+            }
+        },
+        delete: {
+            value: function (name) {
+                LS.removeItem(name);
+                delete LS[name];
+            }
+        }
+    });
+
+
 })();
 
 
+Blinder = {
+    init: function () {
+        var $ = this;
+        this.panel = _E('<div id="result_panel" _anm_ modal_panel  style="z-index:100;color:white;padding:1em;transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 2000,0, 1);"></div>');
+        $.header = _E('div').setA({id: "modalHeader"}).css("padding:.5em;color:white")._(
+                $.flag = _E().css("float:left;margin-right:2em;"),
+                $.kill = _E("kill").css("float:right;font-size:2em;line-height: 1em;width: 1.3em;"),
+                $.modal_title = _E().setA({id: "modalTitle"})
+                );
+        $.content = _E('div').setA({id: "modalBody"}).css("padding:0");
+
+        $.footer = _E('div').setA({id: "modalFooter"}).css("_float:right")._(
+                $.apply_btn = _E('div', "APPLY").setA({btn: '', hidden: '', apply_btn: '', tabindex: "0"}).css("float:left;margin-right:.5em;position:relative"),
+                $.ok_btn = _E('div', "OK").setA({btn: '', hidden: '', ok_btn: '', tabindex: "0"}).css("float:left;margin-right:.5em;position:relative"),
+                $.cancel_btn = _E('div', "CANCEL").setA({btn: '', hidden: '', cancel_btn: '', tabindex: "0"}).css("float:left;position:relative")
+                );
+        $.panel._($.header, $.content, $.footer, _E().css("clear:both"));
+
+        document.body._(this.panel);
+        $.kill.on("click", function (ev) {
+            Blinder.hide();
+        });
+        ["ok", "apply", "cancel"].map(s => {
+            let btn = $[s + "_btn"];
+            btn.on("click,keypress", ev => {
+                if (btn.hasA("disabled")) {
+                    return;
+                }
+                if (btn.poper) {
+                    btn.poper.die(-1);
+                    btn.poper = null;
+                }
+                let error = ($.conf[s] || nf)(); // fiecare btn are un rezolver care intoarce sau nu o valoare 
+                if (!error) { // 0 sau "" empty string or false
+                    //$.kill.fire("click", {source: btn, btn: s});
+                    $.hide();
+                }
+                else if (typeof error === 'string') {
+                    // daca intorc string atunci afisez mesaj pe buton --
+                    // !!! BAC >>> daca e numeric atunci doar opresc inchiderea blinderului -- presupun ca se face shup undeva pe Blinder.content
+                    btn.shup({info: error, relative: {_left: "em"}});
+                }
+            });
+        });
+    },
+    show: function (O = {}) {
+        var $ = this;
+        this.panel.__txy = [0, 0];
+        var RNM = {ok: "OK", apply: "APPLY", cancel: "CANCEL"}.tail({A: 1});
+        console.log(RNM);
+        ["ok", "apply", "cancel"].map(s => {
+            this[s + "_btn"].remA("disabled"); // resetare butoane daca au fost folosite in alt scope
+            this[s + "_btn"][O[s] ? "remA" : "setA"]("hidden");
+            this[s + "_btn"].html = RNM[s];
+        });
+
+        this.flag._clr(O.flag || _E());
+        this.title = O.title;
+        this.content._clr(O.html || _E());
+        O.time && setTimeout(function () {
+            $.hide();
+        }, O.time);
+    },
+    hide() {
+        this.panel.__txy = [0, 900];
+    },
+
+};
+
+Object.defineProperties(Blinder, {
+    title: {
+        set: function (str) {
+            this.modal_title.html = str || '';
+        }
+    }
+});
+
+
+
+// WSC -- WEB SOCKET CONNECTOR
+class WSC {
+    CH = new Chain;
+    A = 1;
+    constructor() {}
+    close() {
+        this.socket && this.socket.close();
+        this.socket = null;
+    }
+    open(host, port, data = {}){
+        this.host = host;
+        this.port = port;
+        try {
+            this.close();
+            let SK = new WebSocket('wss://' + host + ":" + port + "?" + btoa(JSON.stringify(data)));
+            this.socket = SK;
+            SK.addEventListener('open', ev => {
+                this.CH.resolve(ev);
+                console.log(' CONNECTED ' + SK.url);
+
+            });
+            SK.addEventListener('error', ev => {
+                console.log("ERROR", ev);
+                this.CH.reject(ev);
+            });
+            SK.onclose = function (e) {
+                console.log('CLOSED ' + SK.url);
+                
+            };
+        } catch (e) {
+        }
+        return this.CH;
+    }
+    
+}
+getWss = function (port) {
+    var notifications = [];
+
+    //console.log('wss://myadr.ro:7777?du=' + session.domain_user);
+    var websocketConnectionString = 'wss://myadr.ro:' + port + '?du=io@myadr.ro';//+ session.domain_user;
+    //var websocketConnectionString = 'wss://' + (host  || location.hostname) + ':' + (port || session.wss_port || 8888) + '?du=' + session.domain_user;
+    // var websocketConnectionString = `wss://${location.host}:7777?du=${session.domain_user}`;
+    var socket = new WebSocket(websocketConnectionString);
+
+    socket.onopen = function (e) {
+        //cod pentru afisare sau executare ceva cand se instantiaza WebSocket-ul client frontend
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+        else {
+            console.log(websocketConnectionString + ' CONNECTED');
+        }
+        /// Q.i(socket)
+    };
+
+    socket.onmessage = function (e) {
+        //console.log(e);
+        //decodificare mesaj sau comanda??
+        var error = 0;
+        var a = '';
+        try {
+            a = JSON.parse(e.data);
+        } catch (exc) {
+            error = exc;
+            console.log('mesajul primit nu este conform! . afisam E:' + exc);
+        }
+        //console.log(a);
+
+        if (!error) {
+            if (typeof (a.message) !== 'undefined') {
+                //am primit mesaj interpretam
+                var noti = new Notification('',
+                        {
+                            requireInteraction: true,
+                            body: a.message,
+                            icon: '/favicon.ico'
+                        });
+                noti.naughtyID = notifications.length;
+                notifications.push(noti);
+                notifications[notifications.length - 1].onclick = function (ev) {
+                    console.log(ev);
+                    ev.target.close();
+                    notifications.splice(notifications[notifications.length - 1].naughtyID, 1);
+                };
+
+            }
+            if (typeof (a.command) !== 'undefined') {
+                var code = eval(a.command);
+            }
+            if (typeof (a.data) !== 'undefined') {
+                console.log('avem si mesaj de date');
+                console.log(a.data);
+            }
+        }
+    };
+
+    socket.onclose = function (e) {
+        console.log('WSS session closed! ', e);
+        socket.close();
+    };
+
+    //zona de trimitere mesaje - date
+    socket.smsToUser = function (msg, user) {
+        var obj = {};
+        obj.data = {};
+        obj.data.message = msg;
+        obj.data = JSON.stringify(obj.data);
+        obj.users = typeof user === 'string' ? [user] : user;
+        dataToSend = JSON.stringify(obj);
+        console.log(dataToSend);
+        socket.send(dataToSend);
+    };
+
+    socket.push = function (o) {
+        var obj = {};
+        obj.data = {};
+        obj.data.message = o.msg;
+        if (o.cmd)
+            obj.data.command = o.cmd;
+        obj.data = JSON.stringify(obj.data);
+        obj.users = (typeof (o.users) === 'string') ? [o.users] : o.users;
+        dataToSend = JSON.stringify(obj);
+        v = obj;
+        socket.send(dataToSend);
+    };
+
+    socket.smsToGroup = function (msg, group) {
+        dn('mesaj WSS trimis: ' + msg + ' catre grupul: ' + msg);
+        var data = {};
+        data.message = msg;
+        data.users = group;
+        dataToSend = JSON.stringify(data);
+        socket.send(dataToSend);
+    };
+
+    socket.cmdToUser = function (cmd, user) {
+        dn('comanda WSS trimis: ' + cmd + ' catre grupul: ' + user);
+        var data = {};
+        data.command = cmd;
+        data.user = user;
+        dataToSend = JSON.stringify(data);
+        socket.send(dataToSend);
+    };
+    return socket;
+};

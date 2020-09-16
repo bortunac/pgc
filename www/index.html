@@ -3,39 +3,36 @@
 
     <head>
         <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
+        <meta name="format-detection" content="telephone=yes" />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
         <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
         <link rel="stylesheet" type="text/css" href="css/ratchet.css" />
         <link rel="stylesheet" type="text/css" href="css/bac_cordova.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>aqr</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        <title>qric</title>
     </head>
 
-    <body>
+    <body> 
         <div class="app">
             <header top_bar class="bar bar-nav">
-                <div fll hidden id="back_btn"></div>
-                <h3 style="text-align: center; margin-top: .5em;" id="app_title">APP_TOKEN</h3>
+                <div style='position:absolute;left:0;top:0' hidden id="back_btn"></div>
+                <h3 style="text-align: center; margin-top: .5em;color:white">QRIC</h3>
+                <div style="border-top:.5px solid white;padding:1em;font-size:1.3em;color:white;font-family: monospace;background:hsl(16deg 97% 37%)">
+                    <div id="selected_host" style='overflow:auto'>HOST ...</div>
+                    <div id="selected_user" style='margin-top:.5em;overflow:auto'>USER ...</div>
+                </div>
             </header>
-            <div id="MAIN" class="content" style="background: #eee;margin-top:.2em">
-                <section but_and_exp>
-                    <div square_btn id="qr_scaner_btn"></div>
-                    <span>
-                        <b>QR_Authentication</b>
-                        <p>SCAN QR TAG dfdfsfds dfsffdsfdfsdfdsfsf dfdfsfdsdfsdf
-                            dfdfsfdsdfsdfdsfsd fd fdf ffrrfref rfregtwgte
-                            fdsfdser</p>
-                    </span>
-                </section>
+            <div id="MAIN" class="content" style="background: #eee;margin-top:7em;_overflow: hidden !important">
+                <div letter_btn style='color:red' id=foo>FOO</div>
                 <section but_and_exp>
                     <div square_btn id="settings_btn"></div>
                     <span>
                         <b>Settings</b>
-                        <p>tralala</p>
+                        <p>token for current account<br/>tel</p>
                     </span>
-                    <div style="clear:both"></div>
+                    <!--<div style="clear:both"></div>-->
                 </section>
                 <section but_and_exp>
                     <div square_btn id="inappbrowser_btn"></div>
@@ -43,16 +40,32 @@
                         <b>InAppBrowser</b>
                         <p>- mobile gate to domain above<br />- usefull things based on user profile</p>
                     </span>
-                    <div style="clear:both"></div>
+                    <!--<div style="clear:both"></div>-->
                 </section>
                 <section but_and_exp>
                     <div square_btn id="extra_btn"></div>
                     <span>
                         <b>EXTRA</b>
-                        <p>... ceva idei ?</p>
+                        <p>... ceva idei ? <br/>HELP ,fast MESAGE or SMTH</p>
                     </span>
-                    <div style="clear:both"></div>
+                    <!--<div style="clear:both"></div>-->
                 </section> 
+                <section but_and_exp style='position:relative;background: transparent;border:none'>
+                    <div square_btn id="qr_scaner_btn" style='font-size:1.8em;float:none;margin:auto;width:6em;color:white;background: rgba(0,0,0,.8)'
+                         _style='transform:  translateX(-50%) scale(1.8);width:6em;float: none;position:absolute;left:50%;top:6em;color:orangered'></div>
+                    <span><br/>
+                        
+                        <b>SCAN QR</b>
+                        <p> user identity confirmation<br/> authorized server-side document signing</p> 
+                    </span>
+                   <div style="clear:both"></div>  
+                </section>
+                
+                
+                
+                
+                
+                
                 <div id="settings_panel" _anm_ modal_panel  style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1000, 0, 1);">
                     <ul class="table-view">
                         <li class="table-view-cell">
@@ -90,7 +103,8 @@
                         <div style="float:left;margin:.5em 0 0 .7em;">SETTINGS</div>
                     </div>
                 </div>
-                <div style="height:300px">&nbsp;</div>
+               
+                <!--<div style="height:300px">&nbsp;</div>-->
             </div>
 
             <div style="position: fixed;bottom:0;width:100%;margin:0;" id="deviceready" class="blink">
@@ -98,7 +112,8 @@
                 <p style="margin:0 !important" class="event received">Device is Ready</p>
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
+        
+       
         <script type="text/javascript" src="js/ratchet.js"></script>
         <script type="text/javascript" src="js/bac_cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

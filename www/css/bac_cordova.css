@@ -79,3 +79,18 @@ clear{
 [_anm_2]{
     transition: all .7s ease-in-out;
 }
+
+
+kill{
+    color:white;
+}
+kill:before {
+    font-family: 'BAC'; content: '\9D';
+    font-weight: 500;
+    font-size: 2em;
+    position:relative;
+}
+kill:active:before {
+    color: red;
+    background: rgba(255,255,255,.3);
+}
